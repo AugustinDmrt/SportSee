@@ -8,7 +8,6 @@ const Card = (props: {
   value: string;
   unit: string;
   icon: string;
-  color: string;
   text: string;
 }) => {
   let logo = "";
@@ -39,7 +38,10 @@ const Card = (props: {
         <img className="card-image" src={logo} alt="" />
       </div>
       <div className="card-content">
-        <h2>{props.value}</h2>
+        <h2>
+          {props.value}
+          {props.unit}
+        </h2>
         <p>{props.text}</p>
       </div>
     </div>

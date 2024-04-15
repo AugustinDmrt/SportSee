@@ -30,16 +30,10 @@ const Home = () => {
               </div>
             </div>
             <div className="home-card">
-              <Card
-                value="1, 930"
-                unit="kCal"
-                icon="Fire"
-                color="Red"
-                text="Calories"
-              />
-              <Card value="1" unit="" icon="Chicken" color="" text="" />
-              <Card value="1" unit="" icon="Apple" color="" text="" />
-              <Card value="1" unit="" icon="Cheeseburger" color="" text="" />
+              <Card value="1, 930" unit="kCal" icon="Fire" text="Calories" />
+              <Card value="155" unit="g" icon="Chicken" text="Proteines" />
+              <Card value="290" unit="g" icon="Apple" text="Glucides" />
+              <Card value="50" unit="g" icon="Cheeseburger" text="Lipides" />
             </div>
           </div>
         </div>
