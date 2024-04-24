@@ -1,12 +1,5 @@
-import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import "./DurationChart.sass";
 
 const DurationChart = () => {
   const data = [
@@ -55,20 +48,37 @@ const DurationChart = () => {
   ];
 
   return (
-    <LineChart
-      width={258}
-      height={263}
-      data={data}
-      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    </LineChart>
+    <div className="duration-chart-container">
+      <h2
+        className="duration-chart-title"
+        style={{ color: "#fff", textAlign: "center" }}
+      >
+        Durée moyenne des sessions
+      </h2>
+      <LineChart
+        width={258}
+        height={263}
+        data={data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
+        <XAxis dataKey="name" stroke="#ffffff" />
+        <YAxis stroke="#ffffff" />
+        <Tooltip cursor={false} />
+        <Line
+          type="monotone"
+          dataKey="uv"
+          stroke="#ffffff"
+          strokeWidth={2}
+          // dot={{ stroke: "#ffffff", strokeWidth: 2, r: 6, fill: "#ffffff" }}
+          activeDot={{
+            r: 8,
+            fill: "#ffffff",
+            stroke: "#E60000",
+            strokeWidth: 2,
+          }}
+        />
+      </LineChart>
+    </div>
   );
 };
 export default DurationChart;

@@ -7,63 +7,38 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import DataActivity from "../../assets/data/data.json";
 import "./DailyActivities.sass";
 
 const DailyActivities = () => {
-  const data = [
-    {
-      name: "Lundi",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Mardi",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Mercredi",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Jeudi",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Vendredi",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Samedi",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Dimanche",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+  const data = DataActivity["USER_ACTIVITY"][0];
+  const dataJS = data.sessions.map((session) => ({
+    name: `Jour ${session.day}`,
+    pv: session.kilogram,
+    uv: session.calories,
+  }));
+
   return (
-    <div className="daily-chart">
-      <BarChart width={835} height={320} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+    <div className="daily-chart-container">
+      <h2 className="daily-chart-title">Activité quotidienne</h2>
+      <BarChart width={835} height={320} data={dataJS}>
+        <CartesianGrid horizontal strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis dataKey="pv" orientation="right" />
+        <YAxis dataKey="uv" orientation="left" hide={true} />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="pv" fill="#8884d8" />
-        <Bar dataKey="uv" fill="#82ca9d" />
+        <Legend
+          align="center"
+          verticalAlign="top"
+          wrapperStyle={{ lineHeight: "40px" }}
+        />
+        <Bar dataKey="pv" name="Poids (kg)" fill="#E60000" barSize={20} />
+        <Bar
+          dataKey="uv"
+          name="Calories brûlées (kCal)"
+          fill="#282D30"
+          barSize={20}
+        />
       </BarChart>
     </div>
   );

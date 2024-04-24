@@ -6,61 +6,59 @@ import {
   Radar,
   RadarChart,
 } from "recharts";
+import "./IntensityChart.sass";
 
 const IntensityChart = () => {
   const data = [
     {
       subject: "Math",
       A: 120,
-      B: 110,
     },
     {
       subject: "Chinese",
       A: 98,
-      B: 130,
     },
     {
       subject: "English",
       A: 86,
-      B: 130,
     },
     {
       subject: "Geography",
       A: 99,
-      B: 100,
     },
     {
       subject: "Physics",
       A: 85,
-      B: 90,
     },
     {
       subject: "History",
       A: 65,
-      B: 85,
     },
   ];
   return (
-    <RadarChart outerRadius={90} width={258} height={263} data={data}>
-      <PolarGrid />
-      <PolarAngleAxis dataKey="subject" />
-      <PolarRadiusAxis angle={30} domain={[0, 150]} />
-      <Radar
-        name="Mike"
-        dataKey="A"
-        stroke="#8884d8"
-        fill="#8884d8"
-        fillOpacity={0.6}
-      />
-      <Radar
-        name="Lily"
-        dataKey="B"
-        stroke="#82ca9d"
-        fill="#82ca9d"
-        fillOpacity={0.6}
-      />
-      <Legend />
-    </RadarChart>
+    <div
+      style={{ background: "#282D30", padding: "20px", borderRadius: "10px" }}
+    >
+      <RadarChart outerRadius={90} width={258} height={263} data={data}>
+        <PolarGrid gridType="circle" stroke="#282D30" />
+        <PolarAngleAxis dataKey="subject" stroke="#ffffff" />
+        <PolarRadiusAxis
+          angle={30}
+          domain={[0, 150]}
+          tick={false}
+          axisLine={false}
+          tickLine={false}
+        />
+        <Radar
+          name="Mike"
+          dataKey="A"
+          stroke="#FF0101"
+          fill="#FF0101"
+          fillOpacity={0.7}
+        />
+        <Legend wrapperStyle={{ bottom: 0 }} iconType="square" />
+      </RadarChart>
+    </div>
   );
 };
 export default IntensityChart;
