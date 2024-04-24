@@ -7,12 +7,18 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import DataActivity from "../../assets/data/data.json";
+import DataActivity from "../../assets/data/data.tsx";
 import "./DailyActivities.sass";
 
 const DailyActivities = () => {
-  const data = DataActivity["USER_ACTIVITY"][0];
-  const dataJS = data.sessions.map((session) => ({
+  // const data = DataActivity["USER_ACTIVITY"][0];
+  // const dataJS = data.sessions.map((session) => ({
+  //   name: `Jour ${session.day}`,
+  //   pv: session.kilogram,
+  //   uv: session.calories,
+  // }));
+  const data = DataActivity[1][0].sessions;
+  const dataJS = data.map((session: { day: any; sessionLength: any }) => ({
     name: `Jour ${session.day}`,
     pv: session.kilogram,
     uv: session.calories,

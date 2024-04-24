@@ -21,7 +21,7 @@ const ScoreChart = () => {
         outerRadius="80%"
         barSize={10}
         data={data}
-        startAngle={180}
+        startAngle={360}
         endAngle={0}
       >
         <RadialBar
