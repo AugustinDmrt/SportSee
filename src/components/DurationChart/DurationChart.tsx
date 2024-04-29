@@ -19,7 +19,7 @@ const DurationChart = () => {
       </h2>
       <LineChart
         width={300}
-        height={263}
+        height={200}
         data={dataJS}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >

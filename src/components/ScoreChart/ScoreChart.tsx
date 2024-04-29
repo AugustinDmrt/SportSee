@@ -3,9 +3,7 @@ import DataScore from "../../assets/data/data.tsx";
 import "./ScoreChart.sass";
 
 const ScoreChart = () => {
-  const data = DataScore[0][1].score;
-  console.log(data);
-
+  const data = DataScore[0][1];
   return (
     <div className="score-chart-container">
       <RadialBarChart
@@ -16,7 +14,7 @@ const ScoreChart = () => {
         innerRadius="70%"
         outerRadius="80%"
         barSize={10}
-        data={data}
+        data={data.score}
         startAngle={360}
         endAngle={0}
       >
