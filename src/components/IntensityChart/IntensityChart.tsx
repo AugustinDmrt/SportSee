@@ -6,40 +6,28 @@ import {
   Radar,
   RadarChart,
 } from "recharts";
+import DataIntensity from "../../assets/data/data.tsx";
 import "./IntensityChart.sass";
 
 const IntensityChart = () => {
-  const data = [
-    {
-      subject: "Math",
-      A: 120,
-    },
-    {
-      subject: "Chinese",
-      A: 98,
-    },
-    {
-      subject: "English",
-      A: 86,
-    },
-    {
-      subject: "Geography",
-      A: 99,
-    },
-    {
-      subject: "Physics",
-      A: 85,
-    },
-    {
-      subject: "History",
-      A: 65,
-    },
-  ];
+  const firstUserData = DataIntensity[3][0];
+
+  const dataPerformance = firstUserData.data.map(
+    (item: { kind: string | number; value: any }) => ({
+      subject: item.kind,
+      value: item.value,
+    })
+  );
   return (
     <div
       style={{ background: "#282D30", padding: "20px", borderRadius: "10px" }}
     >
-      <RadarChart outerRadius={90} width={258} height={263} data={data}>
+      <RadarChart
+        outerRadius={90}
+        width={258}
+        height={263}
+        data={dataPerformance}
+      >
         <PolarGrid gridType="circle" stroke="#282D30" />
         <PolarAngleAxis dataKey="subject" stroke="#ffffff" />
         <PolarRadiusAxis

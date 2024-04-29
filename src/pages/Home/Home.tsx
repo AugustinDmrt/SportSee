@@ -1,3 +1,4 @@
+import DataCard from "../../assets/data/data.tsx";
 import Card from "../../components/Card/Card";
 import DailyActivities from "../../components/DailyActivities/DailyActivities";
 import DurationChart from "../../components/DurationChart/DurationChart";
@@ -8,6 +9,8 @@ import ScoreChart from "../../components/ScoreChart/ScoreChart";
 import "./Home.sass";
 
 const Home = () => {
+  const data = DataCard[0][0].keyData;
+
   return (
     <div className="home-container">
       <NavTop />
@@ -30,10 +33,30 @@ const Home = () => {
               </div>
             </div>
             <div className="home-card">
-              <Card value="1, 930" unit="kCal" icon="Fire" text="Calories" />
-              <Card value="155" unit="g" icon="Chicken" text="Proteines" />
-              <Card value="290" unit="g" icon="Apple" text="Glucides" />
-              <Card value="50" unit="g" icon="Cheeseburger" text="Lipides" />
+              <Card
+                value={data.calorieCount}
+                unit="kCal"
+                icon="Fire"
+                text="Calories"
+              />
+              <Card
+                value={data.proteinCount}
+                unit="g"
+                icon="Chicken"
+                text="Proteines"
+              />
+              <Card
+                value={data.carbohydrateCount}
+                unit="g"
+                icon="Apple"
+                text="Glucides"
+              />
+              <Card
+                value={data.lipidCount}
+                unit="g"
+                icon="Cheeseburger"
+                text="Lipides"
+              />
             </div>
           </div>
         </div>

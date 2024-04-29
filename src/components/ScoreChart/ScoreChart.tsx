@@ -1,15 +1,11 @@
 import { Legend, RadialBar, RadialBarChart, Tooltip } from "recharts";
+import DataScore from "../../assets/data/data.tsx";
 import "./ScoreChart.sass";
 
 const ScoreChart = () => {
-  const data = [
-    {
-      name: "18-24",
-      uv: 31.47,
-      pv: 2400,
-      fill: "#8884d8",
-    },
-  ];
+  const data = DataScore[0][1].score;
+  console.log(data);
+
   return (
     <div className="score-chart-container">
       <RadialBarChart
