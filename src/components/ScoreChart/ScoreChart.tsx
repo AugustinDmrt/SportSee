@@ -1,9 +1,21 @@
-import { Legend, RadialBar, RadialBarChart, Tooltip } from "recharts";
+import { Legend, RadialBar, RadialBarChart } from "recharts";
 import DataScore from "../../assets/data/data.tsx";
 import "./ScoreChart.sass";
 
 const ScoreChart = () => {
   const data = DataScore[0][1];
+  const modifiedData = [
+    {
+      name: "Score",
+      uv: data.score * 100,
+    },
+    {
+      name: "Score",
+      uv: 100,
+      fill: "#FBFBFB",
+    },
+  ];
+
   return (
     <div className="score-chart-container">
       <RadialBarChart
@@ -12,11 +24,11 @@ const ScoreChart = () => {
         cx="50%"
         cy="50%"
         innerRadius="70%"
-        outerRadius="80%"
-        barSize={10}
-        data={data.score}
-        startAngle={360}
-        endAngle={0}
+        outerRadius="90%"
+        barSize={12}
+        data={modifiedData}
+        startAngle={90}
+        endAngle={480}
       >
         <RadialBar
           minAngle={15}
@@ -38,9 +50,9 @@ const ScoreChart = () => {
             fontSize: "12px",
           }}
         />
-        <Tooltip />
       </RadialBarChart>
     </div>
   );
 };
+
 export default ScoreChart;

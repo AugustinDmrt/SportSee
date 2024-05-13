@@ -19,6 +19,21 @@ const DailyActivities = () => {
       uv: session.calories,
     })
   );
+  const CustomTooltip = (data: any) => {
+    try {
+      let kg = data.payload[0]["value"];
+      let kCal = data.payload[1]["value"];
+
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`${kg}kg`}</p>
+          <p className="label">{`${kCal}Kcal`}</p>
+        </div>
+      );
+    } catch {
+      return null;
+    }
+  };
 
   return (
     <div className="daily-chart-container">
@@ -28,11 +43,15 @@ const DailyActivities = () => {
         <XAxis dataKey="name" />
         <YAxis yAxisId="right" dataKey="pv" orientation="right" />
         <YAxis yAxisId="left" dataKey="uv" orientation="left" hide={true} />
-        <Tooltip />
+        <Tooltip
+          offset={40}
+          wrapperStyle={{ outline: "none", fontWeight: 600 }}
+          content={<CustomTooltip />}
+        />
         <Legend
-          align="center"
+          align="right"
           verticalAlign="top"
-          wrapperStyle={{ lineHeight: "40px" }}
+          wrapperStyle={{ lineHeight: "40px", marginBottom: "20px" }}
         />
         <Bar
           yAxisId="right"

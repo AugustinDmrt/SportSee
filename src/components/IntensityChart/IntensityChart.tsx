@@ -1,23 +1,23 @@
 import {
-  Legend,
   PolarAngleAxis,
   PolarGrid,
   PolarRadiusAxis,
   Radar,
   RadarChart,
+  Tooltip,
 } from "recharts";
-import DataIntensity from "../../assets/data/data.tsx";
+import data from "../../assets/data/data.tsx";
 import "./IntensityChart.sass";
 
 const IntensityChart = () => {
-  const firstUserData = DataIntensity[3][0];
+  const USER_PERFORMANCE = data[3];
+  const firstUserData = USER_PERFORMANCE.find((user) => user.userId === 12);
 
-  const dataPerformance = firstUserData.data.map(
-    (item: { kind: string | number; value: any }) => ({
-      subject: item.kind,
-      value: item.value,
-    })
-  );
+  const dataPerformance = firstUserData.data.map((item) => ({
+    subject: firstUserData.kind[item.kind],
+    value: item.value,
+  }));
+
   return (
     <div
       style={{ background: "#282D30", padding: "20px", borderRadius: "10px" }}
@@ -28,8 +28,9 @@ const IntensityChart = () => {
         height={263}
         data={dataPerformance}
       >
-        <PolarGrid gridType="circle" stroke="#282D30" />
-        <PolarAngleAxis dataKey="subject" stroke="#ffffff" />
+        <PolarGrid gridType="polygon" radialLines={false} stroke="#ffffff" />
+        <PolarAngleAxis dataKey="subject" stroke="#ffffff" />{" "}
+        {/* Rétablissez la couleur de trait à "#ffffff" */}
         <PolarRadiusAxis
           angle={30}
           domain={[0, 150]}
@@ -39,14 +40,15 @@ const IntensityChart = () => {
         />
         <Radar
           name="Mike"
-          dataKey="A"
+          dataKey="value"
           stroke="#FF0101"
           fill="#FF0101"
           fillOpacity={0.7}
         />
-        <Legend wrapperStyle={{ bottom: 0 }} iconType="square" />
+        <Tooltip />
       </RadarChart>
     </div>
   );
 };
+
 export default IntensityChart;
