@@ -59,6 +59,7 @@ const DailyActivities = () => {
           name="Poids (kg)"
           fill="#E60000"
           barSize={20}
+          radius={[10, 10, 0, 0]}
         />
         <Bar
           yAxisId="left"
@@ -66,6 +67,7 @@ const DailyActivities = () => {
           name="Calories brûlées (kCal)"
           fill="#282D30"
           barSize={20}
+          radius={[10, 10, 0, 0]}
         />
       </BarChart>
     </div>

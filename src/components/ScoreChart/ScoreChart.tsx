@@ -1,4 +1,4 @@
-import { Legend, RadialBar, RadialBarChart } from "recharts";
+import { RadialBar, RadialBarChart } from "recharts";
 import DataScore from "../../assets/data/data.tsx";
 import "./ScoreChart.sass";
 
@@ -39,7 +39,7 @@ const ScoreChart = () => {
           fill="#ff0000"
           cornerRadius={50}
         />
-        <Legend
+        {/* <Legend
           iconSize={10}
           layout="vertical"
           verticalAlign="middle"
@@ -49,7 +49,11 @@ const ScoreChart = () => {
             transform: "translate(50%, -50%)",
             fontSize: "12px",
           }}
-        />
+        /> */}
+        <div>
+          <p className="score-chart-title">Score</p>
+          <p className="score-chart-value">{data.score * 100}</p>
+        </div>
       </RadialBarChart>
     </div>
   );
