@@ -6,7 +6,18 @@ import IntensityChart from "../../components/IntensityChart/IntensityChart";
 import NavLeft from "../../components/NavLeft/NavLeft";
 import NavTop from "../../components/NavTop/NavTop";
 import ScoreChart from "../../components/ScoreChart/ScoreChart";
+import getData from "../../utils/getDataAPI.ts";
 import "./Home.sass";
+
+let users = getData();
+let urlId = document.location.href.split("/")[4];
+
+Object.values(users).forEach((user) => {
+  // if (user.id == urlId) {
+  //   console.log(user);
+  // }
+  console.log(user);
+});
 
 const Home = () => {
   const data = DataCard[0][0].keyData;

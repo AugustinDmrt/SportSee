@@ -51,7 +51,7 @@ const DailyActivities = () => {
         <Legend
           align="right"
           verticalAlign="top"
-          wrapperStyle={{ lineHeight: "40px", marginBottom: "20px" }}
+          wrapperStyle={{ lineHeight: "50px", marginBottom: "20px" }}
         />
         <Bar
           yAxisId="right"

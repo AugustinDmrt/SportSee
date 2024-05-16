@@ -26,7 +26,7 @@ const ScoreChart = () => {
         cy="50%"
         innerRadius="70%"
         outerRadius="90%"
-        barSize={12}
+        barSize={10}
         data={modifiedData}
         startAngle={90}
         endAngle={480}
