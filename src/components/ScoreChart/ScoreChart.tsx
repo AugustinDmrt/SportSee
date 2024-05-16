@@ -18,6 +18,7 @@ const ScoreChart = () => {
 
   return (
     <div className="score-chart-container">
+      <h2 className="score-chart-title">Score</h2>
       <RadialBarChart
         width={258}
         height={263}
@@ -32,29 +33,20 @@ const ScoreChart = () => {
       >
         <RadialBar
           minAngle={15}
-          label={{ position: "insideStart", fill: "#fff" }}
-          background={{ fill: "#eee" }}
+          background={{ fill: "#FBFBFB" }}
           clockWise={true}
           dataKey="uv"
           fill="#ff0000"
           cornerRadius={50}
         />
-        {/* <Legend
-          iconSize={10}
-          layout="vertical"
-          verticalAlign="middle"
-          wrapperStyle={{
-            top: "50%",
-            right: "50%",
-            transform: "translate(50%, -50%)",
-            fontSize: "12px",
-          }}
-        /> */}
-        <div>
-          <p className="score-chart-title">Score</p>
-          <p className="score-chart-value">{data.score * 100}</p>
-        </div>
       </RadialBarChart>
+      <div className="score-chart-display">
+        <p className="score-chart-value">{data.score * 100}%</p>
+        <p className="score-chart-text">
+          de votre <br />
+          objectif
+        </p>
+      </div>
     </div>
   );
 };

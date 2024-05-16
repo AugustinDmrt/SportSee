@@ -30,7 +30,6 @@ const IntensityChart = () => {
       >
         <PolarGrid gridType="polygon" radialLines={false} stroke="#ffffff" />
         <PolarAngleAxis dataKey="subject" stroke="#ffffff" />{" "}
-        {/* Rétablissez la couleur de trait à "#ffffff" */}
         <PolarRadiusAxis
           angle={30}
           domain={[0, 150]}
