@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import DataCard from "../../assets/data/data.tsx";
 import Card from "../../components/Card/Card";
 import DailyActivities from "../../components/DailyActivities/DailyActivities";
@@ -9,18 +10,21 @@ import ScoreChart from "../../components/ScoreChart/ScoreChart";
 import getData from "../../utils/getDataAPI.ts";
 import "./Home.sass";
 
-let users = getData();
 let urlId = document.location.href.split("/")[4];
-
-Object.values(users).forEach((user) => {
-  // if (user.id == urlId) {
-  //   console.log(user);
-  // }
-  console.log(user);
-});
 
 const Home = () => {
   const data = DataCard[0][0].keyData;
+  const [users, setUsers] = useState([{}]);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    setUsers(getData());
+    users.forEach((user) => {
+      if (user.id == urlId) {
+        setUser(user);
+      }
+    });
+  }, [user]);
 
   return (
     <div className="home-container">
