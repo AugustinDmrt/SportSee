@@ -13,8 +13,17 @@ const IntensityChart = () => {
   const USER_PERFORMANCE = data[3];
   const firstUserData = USER_PERFORMANCE.find((user) => user.userId === 12);
 
+  const kindTranslation = {
+    1: "Cardio",
+    2: "Energie",
+    3: "Endurance",
+    4: "Force",
+    5: "Vitesse",
+    6: "Intensité",
+  };
+
   const dataPerformance = firstUserData.data.map((item) => ({
-    subject: firstUserData.kind[item.kind],
+    subject: kindTranslation[item.kind],
     value: item.value,
   }));
 
@@ -24,12 +33,16 @@ const IntensityChart = () => {
     >
       <RadarChart
         outerRadius={90}
-        width={258}
+        width={320}
         height={263}
         data={dataPerformance}
       >
         <PolarGrid gridType="polygon" radialLines={false} stroke="#ffffff" />
-        <PolarAngleAxis dataKey="subject" stroke="#ffffff" />{" "}
+        <PolarAngleAxis
+          dataKey="subject"
+          stroke="#ffffff"
+          labelOffset={10}
+        />{" "}
         <PolarRadiusAxis
           angle={30}
           domain={[0, 150]}
