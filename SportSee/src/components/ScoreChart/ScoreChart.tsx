@@ -1,16 +1,19 @@
 import { RadialBar, RadialBarChart } from "recharts";
-import DataScore from "../../assets/data/data.tsx";
 import "./ScoreChart.sass";
 
-const ScoreChart = () => {
-  const data = DataScore[0][1];
+interface ScoreChartProps {
+  score: number;
+}
+
+const ScoreChart = ({ score }: ScoreChartProps) => {
   const modifiedData = [
     {
       name: "Score",
-      uv: data.score * 100,
+      uv: score * 100,
+      fill: "#ff0000",
     },
     {
-      name: "Score",
+      name: "Background",
       uv: 100,
       fill: "#FBFBFB",
     },
@@ -41,7 +44,7 @@ const ScoreChart = () => {
         />
       </RadialBarChart>
       <div className="score-chart-display">
-        <p className="score-chart-value">{data.score * 100}%</p>
+        <p className="score-chart-value">{score * 100}%</p>
         <p className="score-chart-text">
           de votre <br />
           objectif

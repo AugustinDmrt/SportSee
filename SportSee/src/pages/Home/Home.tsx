@@ -12,10 +12,14 @@ import "./Home.sass";
 
 const urlId = document.location.href.split("/")[4];
 
-console.log(import.meta.env.VITE_APP_NAME);
-
 const Home = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    score: 0,
+    calorieCount: 0,
+    proteinCount: 0,
+    carbohydrateCount: 0,
+    lipidCount: 0,
+  });
   const [userName, setUserName] = useState("Utilisateur");
   const envMode = import.meta.env.VITE_ENV_MODE;
 
@@ -23,28 +27,37 @@ const Home = () => {
     const fetchData = async () => {
       if (envMode === "dev") {
         console.log("Mode développement");
-        const devData = DataCard[0].find(
-          (user) => user.id === parseInt(urlId)
-        ) as {
-          id: number;
-          userInfos: { firstName: string; lastName: string; age: number };
-          todayScore: number;
-          keyData: {
-            calorieCount: number;
-            proteinCount: number;
-            carbohydrateCount: number;
-            lipidCount: number;
-          };
-          score?: undefined;
-        };
-        setData(devData.keyData);
-        setUserName(devData.userInfos.firstName);
+        const devData = DataCard[0].find((user) => user.id === parseInt(urlId));
+        if (devData) {
+          setData({
+            score:
+              devData.todayScore !== undefined
+                ? devData.todayScore
+                : devData.score,
+            calorieCount: devData.keyData.calorieCount,
+            proteinCount: devData.keyData.proteinCount,
+            carbohydrateCount: devData.keyData.carbohydrateCount,
+            lipidCount: devData.keyData.lipidCount,
+          });
+          setUserName(devData.userInfos.firstName);
+        } else {
+          console.error("No user data found in development mode");
+        }
       } else {
         console.log("Mode production");
         try {
           const userData = await getData(urlId);
           if (userData && userData.keyData) {
-            setData(userData.keyData);
+            setData({
+              score:
+                userData.todayScore !== undefined
+                  ? userData.todayScore
+                  : userData.score,
+              calorieCount: userData.keyData.calorieCount,
+              proteinCount: userData.keyData.proteinCount,
+              carbohydrateCount: userData.keyData.carbohydrateCount,
+              lipidCount: userData.keyData.lipidCount,
+            });
             setUserName(userData.userInfos.firstName);
           } else {
             console.error("No user data found");
@@ -77,7 +90,7 @@ const Home = () => {
               <div className="home-chart">
                 <DurationChart />
                 <IntensityChart />
-                <ScoreChart />
+                <ScoreChart score={data.score} />
               </div>
             </div>
             <div className="home-card">
