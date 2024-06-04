@@ -10,7 +10,6 @@ import {
 import DataAverageSession from "../../assets/data/data.tsx";
 import "./DailyActivities.sass";
 
-// Fonction pour formater les dates
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, "0");
@@ -21,7 +20,7 @@ const formatDate = (dateString) => {
 const DailyActivities = () => {
   const data = DataAverageSession[1][0].sessions;
   const dataJS = data.map((session) => ({
-    name: formatDate(session.day), // Formatage de la date
+    name: formatDate(session.day),
     pv: session.kilogram,
     uv: session.calories,
   }));
@@ -77,7 +76,7 @@ const DailyActivities = () => {
           dataKey="pv"
           name="Poids (kg)"
           fill="#E60000"
-          barSize={20}
+          barSize={12}
           radius={[10, 10, 0, 0]}
         />
         <Bar
@@ -85,7 +84,7 @@ const DailyActivities = () => {
           dataKey="uv"
           name="Calories brûlées (kCal)"
           fill="#282D30"
-          barSize={20}
+          barSize={12}
           radius={[10, 10, 0, 0]}
         />
       </BarChart>
