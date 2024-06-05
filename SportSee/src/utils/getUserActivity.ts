@@ -3,9 +3,9 @@ import Data from "../assets/data/data.tsx";
 import UserActivity from "../services/UserActivity.ts";
 
 async function getUserActivity(urlId: string) {
-  let data = Data;
-  let allUsersId: number[] = [];
-  let allUserActivities: UserActivity[] = [];
+  const data = Data;
+  const allUsersId: number[] = [];
+  const allUserActivities: UserActivity[] = [];
 
   data[0].map((user) => {
     allUsersId.push(user.id);
@@ -20,12 +20,11 @@ async function getUserActivity(urlId: string) {
     responses.forEach((response) => {
       const userActivityData = response.data.data;
       const userActivity = new UserActivity(
-        userActivityData.id,
+        userActivityData.userId,
         userActivityData.sessions
       );
       allUserActivities.push(userActivity);
     });
-
     const userActivity = allUserActivities.find(
       (activity) => activity.getId() === parseInt(urlId)
     );

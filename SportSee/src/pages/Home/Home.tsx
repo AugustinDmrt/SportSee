@@ -62,7 +62,6 @@ const Home = () => {
           } else {
             console.error("No user data found");
           }
-          console.log(userData);
         } catch (error) {
           console.error("Erreur lors de la récupération des données :", error);
         }
@@ -86,7 +85,7 @@ const Home = () => {
           </p>
           <div className="home-group">
             <div className="home-activity">
-              <DailyActivities />
+              <DailyActivities urlId={urlId} envMode={envMode} />
               <div className="home-chart">
                 <DurationChart />
                 <IntensityChart />
