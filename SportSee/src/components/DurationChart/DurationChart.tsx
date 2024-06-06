@@ -38,7 +38,6 @@ const DurationChart = (props: { urlId: string; envMode: string }) => {
     data = mockData;
   } else {
     data = apiData;
-    console.log(data);
   }
 
   return (

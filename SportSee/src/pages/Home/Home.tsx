@@ -88,7 +88,7 @@ const Home = () => {
               <DailyActivities urlId={urlId} envMode={envMode} />
               <div className="home-chart">
                 <DurationChart urlId={urlId} envMode={envMode} />
-                <IntensityChart />
+                <IntensityChart urlId={urlId} envMode={envMode} />
                 <ScoreChart score={data.score} />
               </div>
             </div>

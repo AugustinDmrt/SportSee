@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -6,12 +7,36 @@ import {
   RadarChart,
   Tooltip,
 } from "recharts";
-import data from "../../assets/data/data.tsx";
+import DataIntensity from "../../assets/data/data.tsx";
+import getUserPerformance from "../../utils/getUserPerformance.ts";
 import "./IntensityChart.sass";
 
-const IntensityChart = () => {
-  const USER_PERFORMANCE = data[3];
-  const firstUserData = USER_PERFORMANCE.find((user) => user.userId === 12);
+const IntensityChart = (props: { urlId: string; envMode: string }) => {
+  const [apiData, setApiData] = useState([{}]);
+  const USER_PERFORMANCE = DataIntensity[3];
+  const firstUserData = USER_PERFORMANCE.find(
+    (user) => user.userId === props.urlId
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userPerformance = await getUserPerformance(props.urlId);
+
+        if (userPerformance) {
+          const formattedData = userPerformance.data.map((item: any) => ({
+            subject: item.kind,
+            value: item.value,
+          }));
+          setApiData(formattedData);
+        }
+      } catch (error) {
+        console.error("Error fetching user performance:", error);
+      }
+    };
+
+    fetchData();
+  }, [props.urlId]);
 
   const kindTranslation = {
     1: "Cardio",
@@ -26,6 +51,13 @@ const IntensityChart = () => {
     subject: kindTranslation[item.kind],
     value: item.value,
   }));
+
+  let data = [{}];
+  if (props.envMode === "dev") {
+    data = mockData;
+  } else {
+    data = apiData;
+  }
 
   return (
     <div
