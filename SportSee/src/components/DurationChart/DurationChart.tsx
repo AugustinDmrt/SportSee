@@ -1,13 +1,45 @@
+import { useEffect, useState } from "react";
 import { Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import DataAverageSession from "../../assets/data/data.tsx";
+import getUserAverageSessions from "../../utils/getUserAverageSessions";
 import "./DurationChart.sass";
 
-const DurationChart = () => {
-  const data = DataAverageSession[2][0].sessions;
-  const dataJS = data.map((session: { day: any; sessionLength: any }) => ({
+const DurationChart = (props: { urlId: string; envMode: string }) => {
+  const [apiData, setApiData] = useState([{}]);
+  const mockData = DataAverageSession[2][0].sessions.map((session) => ({
     name: `Jour ${session.day}`,
     uv: session.sessionLength,
   }));
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userSession = await getUserAverageSessions(props.urlId);
+
+        if (userSession && userSession.getSessions()) {
+          const formattedData = userSession
+            .getSessions()
+            .map((session: any) => ({
+              name: `Jour ${session.day}`,
+              uv: session.sessionLength,
+            }));
+          setApiData(formattedData);
+        }
+      } catch (error) {
+        console.error("Error fetching user sessions:", error);
+      }
+    };
+
+    fetchData();
+  }, [props.urlId]);
+
+  let data = [{}];
+  if (props.envMode === "dev") {
+    data = mockData;
+  } else {
+    data = apiData;
+    console.log(data);
+  }
 
   return (
     <div className="duration-chart-container">
@@ -20,7 +52,7 @@ const DurationChart = () => {
       <LineChart
         width={300}
         height={200}
-        data={dataJS}
+        data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <XAxis dataKey="name" stroke="#ffffff" />
@@ -31,7 +63,6 @@ const DurationChart = () => {
           dataKey="uv"
           stroke="#ffffff"
           strokeWidth={2}
-          // dot={{ stroke: "#ffffff", strokeWidth: 2, r: 6, fill: "#ffffff" }}
           activeDot={{
             r: 8,
             fill: "#ffffff",

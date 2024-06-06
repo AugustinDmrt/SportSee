@@ -50,7 +50,7 @@ const DailyActivities = (props: any) => {
     };
 
     fetchData();
-  }, []);
+  }, [props.urlId]);
 
   // Données mockées
   const mockData = DataAverageSession[1][0].sessions.map((session) => ({
@@ -58,7 +58,7 @@ const DailyActivities = (props: any) => {
     pv: session.kilogram,
     uv: session.calories,
   }));
-  // Utilisation des données de l'API si disponibles, sinon utilisation des données mockées
+
   let data = [{}];
   if (props.envMode === "dev") {
     data = mockData;
