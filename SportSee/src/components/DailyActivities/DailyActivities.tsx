@@ -53,12 +53,16 @@ const DailyActivities = (props: any) => {
   }, [props.urlId]);
 
   // Données mockées
-  const mockData = DataAverageSession[1][0].sessions.map((session) => ({
-    name: formatDate(session.day),
-    pv: session.kilogram,
-    uv: session.calories,
-  }));
+  const mockData = DataAverageSession[1]
+    .find((user) => user.userId === parseInt(props.urlId))
+    .sessions.map((session) => ({
+      name: formatDate(session.day),
+      pv: session.kilogram,
+      uv: session.calories,
+    }));
 
+  // const mockData = DataAverageSession[1][1]
+  console.log("mockData", mockData);
   let data = [{}];
   if (props.envMode === "dev") {
     data = mockData;

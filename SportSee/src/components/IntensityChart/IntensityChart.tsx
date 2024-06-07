@@ -14,7 +14,9 @@ import "./IntensityChart.sass";
 const IntensityChart = (props: { urlId: string; envMode: string }) => {
   const [apiData, setApiData] = useState<any[]>([]);
   const USER_PERFORMANCE = DataIntensity[3];
-  const firstUserData = USER_PERFORMANCE.find((user) => user.userId === 12);
+  const firstUserData = USER_PERFORMANCE.find(
+    (user) => user.userId === parseInt(props.urlId)
+  );
 
   useEffect(() => {
     const fetchData = async () => {

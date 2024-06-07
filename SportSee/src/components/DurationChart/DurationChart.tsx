@@ -15,10 +15,12 @@ const DurationChart = (props: { urlId: string; envMode: string }) => {
   const [apiData, setApiData] = useState([]);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  const mockData = DataAverageSession[2][0].sessions.map((session) => ({
-    name: ["L", "M", "M", "J", "V", "S", "D"][session.day - 1],
-    uv: session.sessionLength,
-  }));
+  const mockData = DataAverageSession[2]
+    .find((user) => user.userId === parseInt(props.urlId))
+    .sessions.map((session) => ({
+      name: ["L", "M", "M", "J", "V", "S", "D"][session.day - 1],
+      uv: session.sessionLength,
+    }));
 
   useEffect(() => {
     const fetchData = async () => {
