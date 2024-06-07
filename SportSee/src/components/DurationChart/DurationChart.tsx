@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Line,
   LineChart,
+  Rectangle,
   ReferenceArea,
   Tooltip,
   XAxis,
@@ -61,6 +62,7 @@ const DurationChart = (props: { urlId: string; envMode: string }) => {
           style={{
             backgroundColor: "#ffffff",
             padding: "5px",
+            height: "40px",
             borderRadius: "5px",
           }}
         >
@@ -74,6 +76,22 @@ const DurationChart = (props: { urlId: string; envMode: string }) => {
 
     setHoverIndex(null);
     return null;
+  };
+
+  const CustomCursor = (props) => {
+    const { points, width, height } = props;
+    const { x, y } = points[0];
+    return (
+      <Rectangle
+        fill="black"
+        stroke="black"
+        opacity={0.1}
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+      />
+    );
   };
 
   return (
@@ -93,9 +111,14 @@ const DurationChart = (props: { urlId: string; envMode: string }) => {
         data={data}
         margin={{ top: 20, right: 20, left: 20, bottom: 10 }}
       >
-        <XAxis dataKey="name" stroke="#ffffff" tick={{ fontSize: 12 }} />
+        <XAxis
+          dataKey="name"
+          stroke="#FFF"
+          strokeOpacity={0}
+          tick={{ fontSize: 12 }}
+        />
         <YAxis hide={true} />
-        <Tooltip content={<CustomTooltip />} cursor={false} />
+        <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
         {hoverIndex !== null && hoverIndex < data.length && (
           <ReferenceArea
             x1={data[hoverIndex].name}
