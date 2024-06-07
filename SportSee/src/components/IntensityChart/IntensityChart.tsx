@@ -84,7 +84,6 @@ const IntensityChart = (props: { urlId: string; envMode: string }) => {
           tickLine={false}
         />
         <Radar
-          name="Mike"
           dataKey="value"
           stroke="#FF0101"
           fill="#FF0101"
