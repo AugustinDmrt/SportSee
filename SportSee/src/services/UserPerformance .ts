@@ -2,6 +2,7 @@ class UserPerformance {
   private userId: number;
   private kind: { [key: number]: string };
   private data: { value: number; kind: number }[];
+  DataIntensity: any;
 
   constructor(
     userId: number,

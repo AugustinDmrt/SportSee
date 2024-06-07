@@ -12,11 +12,9 @@ import getUserPerformance from "../../utils/getUserPerformance.ts";
 import "./IntensityChart.sass";
 
 const IntensityChart = (props: { urlId: string; envMode: string }) => {
-  const [apiData, setApiData] = useState([{}]);
+  const [apiData, setApiData] = useState<any[]>([]);
   const USER_PERFORMANCE = DataIntensity[3];
-  const firstUserData = USER_PERFORMANCE.find(
-    (user) => user.userId === props.urlId
-  );
+  const firstUserData = USER_PERFORMANCE.find((user) => user.userId === 12);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,11 +22,20 @@ const IntensityChart = (props: { urlId: string; envMode: string }) => {
         const userPerformance = await getUserPerformance(props.urlId);
 
         if (userPerformance) {
-          const formattedData = userPerformance.data.map((item: any) => ({
-            subject: item.kind,
+          const kindTranslation = {
+            1: "Cardio",
+            2: "Energie",
+            3: "Endurance",
+            4: "Force",
+            5: "Vitesse",
+            6: "Intensité",
+          };
+
+          const apiData = userPerformance.data.map((item: any) => ({
+            subject: kindTranslation[item.kind],
             value: item.value,
           }));
-          setApiData(formattedData);
+          setApiData(apiData);
         }
       } catch (error) {
         console.error("Error fetching user performance:", error);
@@ -47,34 +54,28 @@ const IntensityChart = (props: { urlId: string; envMode: string }) => {
     6: "Intensité",
   };
 
-  const dataPerformance = firstUserData.data.map((item) => ({
-    subject: kindTranslation[item.kind],
-    value: item.value,
-  }));
+  let mockData = [{}];
+  if (firstUserData && firstUserData.data) {
+    mockData = firstUserData.data.map((item: any) => ({
+      subject: kindTranslation[item.kind],
+      value: item.value,
+    }));
+  }
 
   let data = [{}];
   if (props.envMode === "dev") {
     data = mockData;
   } else {
-    data = apiData;
+    data = apiData.length ? apiData : mockData;
   }
 
   return (
     <div
       style={{ background: "#282D30", padding: "20px", borderRadius: "10px" }}
     >
-      <RadarChart
-        outerRadius={90}
-        width={320}
-        height={263}
-        data={dataPerformance}
-      >
+      <RadarChart outerRadius={90} width={320} height={263} data={data}>
         <PolarGrid gridType="polygon" radialLines={false} stroke="#ffffff" />
-        <PolarAngleAxis
-          dataKey="subject"
-          stroke="#ffffff"
-          labelOffset={10}
-        />{" "}
+        <PolarAngleAxis dataKey="subject" stroke="#ffffff" labelOffset={10} />
         <PolarRadiusAxis
           angle={30}
           domain={[0, 150]}
